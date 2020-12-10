@@ -1,6 +1,6 @@
-# {{ name }}
+# 怎样博客
 
-> {{ description }}
+> 个人博客-----参考自十次方社交系统
 
 ## Build Setup
 
