@@ -69,7 +69,7 @@
 </template>
 <script>
 import "~/assets/css/page-sj-activity-detail.css"
-import gatheringApi from '@/api/gathering'
+import gatheringApi from '@/api/article'
 export default {
     asyncData( {params} ){
         return gatheringApi.findById(params.id).then(res=>{

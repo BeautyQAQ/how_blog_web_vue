@@ -33,7 +33,7 @@
 </template>
 <script>
 import '~/assets/css/page-sj-activity-index.css'
-import gatheringApi from '@/api/gathering'
+import gatheringApi from '@/api/article'
 
 export default {
     data(){

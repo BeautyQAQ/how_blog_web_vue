@@ -1,6 +1,6 @@
 import request from '@/utils/request'
-const group_name = 'gathering'
-const api_name = 'gathering'
+const group_name = 'article'
+const api_name = 'label'
 export default {
   getList() {
     return request({

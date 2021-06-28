@@ -70,8 +70,8 @@
 </template>
 <script>
 import '~/assets/css/page-sj-recruit-detail.css'
-import recruitApi from '@/api/recruit'
-import enterpriseApi from '@/api/enterprise'
+import recruitApi from '@/api/article'
+import enterpriseApi from '@/api/article'
 export default {
     asyncData({params}){
       return recruitApi.findById(params.id ).then( res =>{        

@@ -1,6 +1,6 @@
 import request from '@/utils/request'
-const group_name = 'recruit'
-const api_name = 'recruit'
+const group_name = 'article'
+const api_name = 'article'
 export default {
   getList() {
     return request({
@@ -44,15 +44,9 @@ export default {
       method: 'delete'
     })
   },
-  recommend(){
+  hotlist(){
     return request({
-      url: `/${group_name}/${api_name}/search/recommend`,
-      method: 'get'
-    })
-  },
-  newlist(){
-    return request({
-      url: `/${group_name}/${api_name}/search/newlist`,
+      url: `/${group_name}/${api_name}/search/hotlist`,
       method: 'get'
     })
   }
