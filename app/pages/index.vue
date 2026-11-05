@@ -16,10 +16,13 @@
         <p class="muted">{{ query.keyword ? '搜索结果' : '最新文章' }} · 共 {{ total }} 篇</p>
         <p v-if="!articles.length" class="empty">这里还没有文章。{{ query.keyword || query.channelid ? '换个关键词或频道试试。' : '新的记录正在路上。' }}</p>
         <article v-for="article in articles" :key="article.id" class="article-card">
+          <NuxtLink v-if="article.image" :to="'/article/' + article.id" :aria-label="article.title" class="cover-link"><ArticleCover :src="article.image" class="card-cover" /></NuxtLink>
+          <div class="card-copy">
           <span v-if="article.istop === '1'" class="pinned">置顶</span>
           <h2><nuxt-link :to="'/article/' + article.id">{{ article.title }}</nuxt-link></h2>
-          <p class="excerpt">{{ excerpt(article.content) }}</p>
+          <p class="excerpt">{{ article.summary || '阅读全文，了解这篇记录。' }}</p>
           <p class="muted">{{ article.updatetime || article.createtime }} <span v-if="channelName(article.channelid)"> · {{ channelName(article.channelid) }}</span></p>
+          </div>
         </article>
         <nav v-if="total > size" class="pagination" aria-label="分页">
           <nuxt-link v-if="page > 1" :to="{ path: '/', query: pageQuery(page - 1) }">上一页</nuxt-link>
@@ -33,7 +36,7 @@
 
 
 <script setup lang="ts">
-interface Article { id: string; title: string; content: string; istop: string; updatetime: string; createtime: string; channelid?: string }
+interface Article { id: string; title: string; summary: string; image?: string; istop: string; updatetime: string; createtime: string; channelid?: string }
 interface Channel { id: string; name: string; state: string }
 interface Result<T> { flag: boolean; message: string; data: T }
 const route = useRoute()
@@ -56,7 +59,6 @@ function reset() { navigateTo('/') }
 function channelQuery(id: string) { return { keyword: String(route.query.keyword || ''), channelid: id } }
 function pageQuery(value: number) { return { ...route.query, page: String(value) } }
 function channelName(id?: string) { return channels.value.find(item => item.id === id)?.name || '' }
-function excerpt(content: string) { return (content || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').slice(0, 160) }
 </script>
 
 <style scoped>
@@ -69,11 +71,13 @@ h1 { font-size: 32px; line-height: 1.4; }
 .channels { margin-top: 24px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0; }
 .channels a { color: #718096; }
 .channels .selected { color: #234fbd; font-weight: 700; }
-.article-card { padding: 22px 0; border-bottom: 1px solid #edf0f4; }
+.article-card { display: flex; gap: 24px; align-items: flex-start; padding: 22px 0; border-bottom: 1px solid #edf0f4; }
+.card-copy { flex: 1; min-width: 0; }.cover-link { flex: 0 0 auto; }.card-cover { display: block; width: 156px; height: 110px; object-fit: cover; border-radius: 8px; margin-top: 7px; }
 h2 { margin: 5px 0 10px; font-size: 21px; }
 h2 a { color: #203149; }
 .excerpt { color: #536176; overflow-wrap: anywhere; }
 .pinned { color: #466ba7; font-size: 12px; }
 .empty { text-align: center; padding: 64px 10px; color: #718096; }
 .pagination { justify-content: center; padding-top: 28px; }
+@media(max-width: 600px) { .article-card { flex-direction: column; gap: 12px; }.cover-link { width: 100%; }.card-cover { width: 100%; height: 180px; }.card-copy { width: 100%; } }
 </style>
