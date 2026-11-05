@@ -1,4 +1,6 @@
 module.exports = {
+  env: { API_TARGET: process.env.API_TARGET || 'http://127.0.0.1:9005' },
+  serverMiddleware: [{ path: '/api', handler: '~/server-middleware/api.js' }],
   /*
   ** Headers of the page
   */

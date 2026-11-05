@@ -1,27 +1,29 @@
 {
-  "name": "howblog",
+  "name": "how-blog-web",
   "version": "1.0.0",
-  "description": "{{ description }}",
-  "author": "{{ author }}",
   "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.15.0 <25"
+  },
   "scripts": {
-    "dev": "nuxt",
+    "dev": "nuxt dev --host 127.0.0.1",
     "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "preview": "node .output/server/index.mjs",
+    "start": "node .output/server/index.mjs",
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "nuxt": "^1.0.0",
-    "vue-infinite-scroll": "^2.0.2"
+    "nuxt": "4.6.4",
+    "vue": "3.5.44",
+    "vue-router": "5.4.0"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.1",
-    "eslint": "^4.15.0",
-    "eslint-friendly-formatter": "^3.0.0",
-    "eslint-loader": "^1.7.1",
-    "eslint-plugin-vue": "^4.0.0"
+    "@nuxt/nitro-server": "4.6.4",
+    "@nuxt/vite-builder": "4.6.4",
+    "acorn": "8.19.0",
+    "typescript": "6.0.3",
+    "vue-tsc": "3.3.14"
   }
 }
